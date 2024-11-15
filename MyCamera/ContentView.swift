@@ -52,8 +52,13 @@ struct ContentView: View {
             // sheetを表示
             // isPresentedで指定した状態変数がtrueのとき実行
             .sheet(isPresented: $isShowSheet) {
-                // UIImagePickerController（写真撮影）を表示
-                ImagePickerView(isShowSheet: $isShowSheet, captureImage: $captureImage)
+                if let captureImage {
+                    // 撮影した写真がある→EffectViewを表示する
+                    EffectView(isShowSheet: $isShowSheet, captureImage: captureImage)
+                } else {
+                    // UIImagePickerController(写真撮影)を表示
+                    ImagePickerView(isShowSheet: $isShowSheet, captureImage: $captureImage)
+                }
             } // 「カメラを起動する」ボタンのsheetここまで
 
             // フォトライブラリーから選択する
