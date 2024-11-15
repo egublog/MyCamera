@@ -20,24 +20,14 @@ struct ContentView: View {
         VStack {
             // スペース追加
             Spacer()
-            // 撮影した写真があるとき
-            if let captureImage {
-                // 撮影写真を表示
-                Image(uiImage: captureImage)
-                // リサイズ
-                    .resizable()
-                // アスペクト比（縦横比）を維持して画面に収める
-                    .scaledToFit()
-            }
-
-            // スペース追加
-            Spacer()
             // 「カメラを起動する」ボタン
             Button {
                 // ボタンをタップしたときのアクション
                 // カメラが利用可能かチェック
                 if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     print("カメラは利用できます")
+                    // 撮影写真を初期化する
+                    captureImage = nil
                     // カメラが使えるなら、isShowSheetをtrue
                     isShowSheet.toggle()
                 } else {
@@ -96,31 +86,10 @@ struct ContentView: View {
                 }
             }) // .onChange ここまで
 
-            // captureImageをアンラップする
-            if let captureImage {
-                // captureImageから共有する画像を生成する
-                let shareImage = Image(uiImage: captureImage)
-                // 共有シート
-                ShareLink(item: shareImage, subject: nil, message: nil,
-                          preview: SharePreview("Photo", image: shareImage)) {
-                    // テキスト表示
-                    Text("SNSに投稿する")
-                    // 横幅いっぱい
-                        .frame(maxWidth: .infinity)
-                    // 高さ50ポイント指定
-                        .frame(height: 50)
-                    // 背景を青色に指定
-                        .background(Color.blue)
-                    // 文字色を白色に指定
-                        .foregroundStyle(Color.white)
-                    // 上下左右に余白を追加
-                        .padding()
-                } // ShareLinkここまで
-            } // アンラップここまで
         } // VStackここまで
     } // bodyここまで
 } // ContentViewここまで
 
 #Preview {
     ContentView()
-}  
+}
