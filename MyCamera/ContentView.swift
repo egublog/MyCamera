@@ -90,8 +90,13 @@ struct ContentView: View {
                     }
                 }
             }) // .onChange ここまで
-
         } // VStackここまで
+        .onChange(of: captureImage, initial: true, { oldValue, newValue in
+            if let _ = newValue {
+                // 撮影した写真がある→EffectViewを表示する
+                isShowSheet.toggle()
+            }
+        })
     } // bodyここまで
 } // ContentViewここまで
 
