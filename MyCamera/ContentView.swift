@@ -56,7 +56,7 @@ struct ContentView: View {
                     // 撮影した写真がある→EffectViewを表示する
                     EffectView(isShowSheet: $isShowSheet, captureImage: captureImage)
                 } else {
-                    // UIImagePickerController(写真撮影)を表示
+                    // UIImagePickerController（写真撮影）を表示
                     ImagePickerView(isShowSheet: $isShowSheet, captureImage: $captureImage)
                 }
             } // 「カメラを起動する」ボタンのsheetここまで
@@ -91,12 +91,13 @@ struct ContentView: View {
                 }
             }) // .onChange ここまで
         } // VStackここまで
+        // 撮影した写真を保持する状態変数が変化したら実行する
         .onChange(of: captureImage, initial: true, { oldValue, newValue in
             if let _ = newValue {
                 // 撮影した写真がある→EffectViewを表示する
                 isShowSheet.toggle()
             }
-        })
+        }) // .onChange ここまで
     } // bodyここまで
 } // ContentViewここまで
 
